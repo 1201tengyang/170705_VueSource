@@ -39,12 +39,15 @@
   //3. Object.defineProperty(obj, propertyName, {}): 给对象添加属性(指定描述符)
   const p = {
     firstName: 'A',
-    lastName: 'B'
+    lastName: 'B',
+    fn: function () {
+      console.log('fn()')
+    }
   }
   Object.defineProperty(p, 'fullName', {  // 属性描述符
     // 1. 数据描述符
     configurable: false, //不能重新再定义
-    enumerable: true,  //是否可枚举
+    enumerable: false,  //是否可枚举
     // 2. 访问描述符
     get () {
       console.log('get()')
@@ -70,8 +73,40 @@
   console.log(p.xxx) // atguigu
 
   //4. Object.keys(obj): 得到对象自身可枚举属性组成的数组
+  const names = Object.keys(p)
+  //console.log(names)
+  names.forEach(name => {
+    const value = p[name]
+    console.log(name, value)
+  })
+
   //5. obj.hasOwnProperty(prop): 判断prop是否是obj自身的属性
+  console.log(p.hasOwnProperty('fn'), p.hasOwnProperty('toString')) // true, false
   //6. DocumentFragment: 文档碎片(高效批量更新多个节点)
+  const ul = document.getElementById('fragment_test')
+  // 创建一个空的fragment对象
+  const fragment = document.createDocumentFragment()
+  let child
+  /*
+  <ul id="fragment_test">
+    <li>test1</li>
+    <li>test2</li>
+    <li>test3</li>
+  </ul>
+   */
+  while(child=ul.firstChild) {   //while(child=3) {}
+    fragment.appendChild(child)  // 一个节点只能有一个父亲  从ul中移除child, 再添加到fragment
+  }
+
+  Array.prototype.slice.call(fragment.childNodes).forEach(node=> {
+    if(node.nodeType===1) { // li
+      node.innerHTML = 'atguigu'  // 此时不会更新界面
+    }
+  })
+  // 将更新后fragment添加到ul中
+  ul.appendChild(fragment)  // fragment的所有child都会成为ul的child
+
+
 </script>
 </body>
 </html>
