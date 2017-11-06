@@ -5,7 +5,21 @@
   <title>02_数据代理_vue</title>
 </head>
 <body>
+  <div id="test">
 
+  </div>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript">
+  const vm = new Vue({
+    el: "#test",
+    data: {
+      msg: 'atguigu'
+    }
+  })
+  console.log(vm.msg, vm)  // atguigu --->vm代理data中msg的读操作
+  vm.msg = 'xfzhang'
+  console.log(vm._data.msg) // xfzhang -->vm代理data中msg的写操作
 
+</script>
 </body>
 </html>
