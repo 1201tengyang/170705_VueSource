@@ -18,6 +18,7 @@ function MVVM(options) {
 
     observe(data, this);
 
+    // 创建一个用于编译的对象(Compile实例对象)
     this.$compile = new Compile(options.el || document.body, this)
 }
 
