@@ -60,19 +60,27 @@ Compile.prototype = {
     },
 
     compile: function(node) {
+        // 得到所有属性节点
         var nodeAttrs = node.attributes,
             me = this;
 
+        // 遍历属性
         [].slice.call(nodeAttrs).forEach(function(attr) {
+            // 得到属性名: v-on:click
             var attrName = attr.name;
+            // 是否是指令属性
             if (me.isDirective(attrName)) {
+                // 得到属性值(表达式): handleClick
                 var exp = attr.value;
+                // 得到指令名: on:click
                 var dir = attrName.substring(2);
                 // 事件指令
                 if (me.isEventDirective(dir)) {
+                    // 解析事件指令
                     compileUtil.eventHandler(node, me.$vm, exp, dir);
-                    // 普通指令
+                // 普通指令
                 } else {
+                    // 解析一般指令
                     compileUtil[dir] && compileUtil[dir](node, me.$vm, exp);
                 }
 
@@ -153,13 +161,15 @@ var compileUtil = {
         });
     },
 
-    // 事件处理
+    // 事件指令处理
     eventHandler: function(node, vm, exp, dir) {
+        // 得到事件名(类型): click
         var eventType = dir.split(':')[1],
+          // 得到事件的回调函数
             fn = vm.$options.methods && vm.$options.methods[exp];
-
+        // 如果都存在, 给当前节点绑定指定事件名和回调函数的DOM事件监听
         if (eventType && fn) {
-            node.addEventListener(eventType, fn.bind(vm), false);
+            node.addEventListener(eventType, fn.bind(vm), false);  // 强制绑定了回调函数中的this为vm
         }
     },
 
@@ -200,11 +210,12 @@ var updater = {
     // 更新节点的className属性: v-class
     classUpdater: function(node, value, oldValue) {
         var className = node.className;
-        className = className.replace(oldValue, '').replace(/\s$/, '');
 
-        var space = className && String(value) ? ' ' : '';
-
-        node.className = className + space + value;
+        if(className) {
+          node.className = className + ' ' + value;
+        } else {
+          node.className = value;
+        }
     },
     // 更新节点的value属性: v-model
     modelUpdater: function(node, value, oldValue) {

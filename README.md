@@ -35,18 +35,18 @@
       	1). 根据正则对象得到匹配出的表达式字符串: 子匹配/RegExp.$1
       	2). 从data中取出表达式对应的属性值
       	3). 将属性值设置为文本节点的textContent
-    4.事件指令解析
-      	1). 从指令名中取出事件名
-      	2). 根据指令的值(表达式)从methods中得到对应的事件处理函数对象
-      	3). 给当前元素节点绑定指定事件名和回调函数的dom事件监听
+    4.事件指令解析  <button v-on:click="test">
+      	1). 从指令名中取出事件名: click
+      	2). 根据指令的值(表达式)从methods中得到对应的事件处理函数对象: test函数
+      	3). 给当前元素节点绑定指定事件名和回调函数的dom事件监听: button.addEventListener('click', test)
       	4). 指令解析完后, 移除此指令属性
-    5.一般指令解析
-      	1). 得到指令名和指令值(表达式)
+    5.一般指令解析: v-text/v-html/v-class
+      	1). 得到指令名和指令值(表达式): text/html/class msg/myClass
       	2). 从data中根据表达式得到对应的值
       	3). 根据指令名确定需要操作元素节点的什么属性
-	        * v-text---textContent属性
-	        * v-html---innerHTML属性
-	        * v-class--class属性
+	        * text---textContent属性
+	        * html---innerHTML属性
+	        * class--className属性
       	4). 将得到的表达式的值设置到对应的属性上
       	5). 移除元素的指令属性
 

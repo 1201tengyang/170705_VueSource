@@ -15,5 +15,24 @@
 </head>
 <body>
 
+<div id="app">
+  <p v-text="msg"></p>
+  <p v-html="msg"></p>
+  <p class="b" v-class="myClass">xxxxx</p>
+</div>
+
+<script src="js/mvvm/compile.js"></script>
+<script src="js/mvvm/observer.js"></script>
+<script src="js/mvvm/watcher.js"></script>
+<script src="js/mvvm/mvvm.js"></script>
+<script>
+  new MVVM({
+    el: '#app',
+    data: {
+      msg: '<a href="http://www.baidu.com">百度</a>',
+      myClass: 'a'
+    }
+  })
+</script>
 </body>
 </html>
