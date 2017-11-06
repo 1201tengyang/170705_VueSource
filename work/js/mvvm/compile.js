@@ -157,6 +157,7 @@ var compileUtil = {
 
         // 创建一个监视对象, 实现更新显示
         new Watcher(vm, exp, function(value, oldValue) {
+            // 更新节点
             updaterFn && updaterFn(node, value, oldValue);
         });
     },

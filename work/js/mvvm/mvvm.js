@@ -16,6 +16,7 @@ function MVVM(options) {
         me._proxy(key);
     });
 
+    // 对data中所有层次的属性实现监视(劫持)
     observe(data, this);
 
     // 创建一个用于编译的对象(Compile实例对象)

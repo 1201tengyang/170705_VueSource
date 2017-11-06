@@ -25,10 +25,15 @@ Watcher.prototype = {
     如果如果被监视的表达式的value有变化, 调用回调函数去更新对应的界面
      */
     run: function() {
+        // 得到最新的值
         var value = this.get();
+        // 得到老值
         var oldVal = this.value;
+        // 如果不相等
         if (value !== oldVal) {
+            // 保存新值
             this.value = value;
+            // 调用更新的回调函数
             this.cb.call(this.vm, value, oldVal);
         }
     },
@@ -38,8 +43,11 @@ Watcher.prototype = {
         将dep添加到当前watcher中
      */
     addDep: function(dep) {
+        // 如果dep与watcher之间的关系还没有建立
         if (!this.depIds.hasOwnProperty(dep.id)) {
+            // 将watcher添加到dep中
             dep.addSub(this);
+            // 将dep添加到watcher中
             this.depIds[dep.id] = dep;
         }
     },

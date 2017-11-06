@@ -10,6 +10,48 @@
   -->
 </head>
 <body>
+<div id="app">
+  <p>{{msg}}</p>
+  <p v-text="msg"></p>
+  <p>{{wife.name}}</p>
+  <button v-on:click="update">更新</button>
+</div>
+
+<script src="js/mvvm/compile.js"></script>
+<script src="js/mvvm/observer.js"></script>
+<script src="js/mvvm/watcher.js"></script>
+<script src="js/mvvm/mvvm.js"></script>
+<script>
+  new MVVM({
+    el: '#app',
+    data: {
+      msg: 'atguigu',
+      wife: {
+        name: 'feifei',
+        age: 18
+      }
+    },
+    methods: {
+      update () {
+        this.msg = 'baidu'
+        this.wife.name = 'huahua'
+      }
+    }
+  })
+
+  // 每个data中的属性都有一个对应的dep对象
+  // 每解析一个表达式或非事件指令都创建一个对应的watcher
+
+  /*
+  data属性---dep
+  表达式---watcher
+  一个表达式中可能包含n个data属性
+    msg: 对应1个data属性
+    wife.name: 对应2个data属性
+  1个watcher对应n个dep: 多层结构的表达式
+  1个dep对应n个watcher: 多个表达式用到同一个属性
+   */
+</script>
 </body>
 
 </html>
