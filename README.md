@@ -41,7 +41,7 @@
       	3). 给当前元素节点绑定指定事件名和回调函数的dom事件监听: button.addEventListener('click', test)
       	4). 指令解析完后, 移除此指令属性
     5.一般指令解析: v-text/v-html/v-class
-      	1). 得到指令名和指令值(表达式): text/html/class msg/myClass
+      	1). 得到指令名和指令属性值(表达式): text/html/class msg/myClass
       	2). 从data中根据表达式得到对应的值
       	3). 根据指令名确定需要操作元素节点的什么属性
 	        * text---textContent属性
@@ -74,7 +74,7 @@
 			* subs属性说明
 				* 当一个watcher被创建时, 内部会将当前watcher对象添加到对应的dep对象的subs中
 				* 当此data属性的值发生改变时, 所有subs中的watcher都会收到更新的通知, 从而最终更新对应的界面
-		3). Compiler
+		3). Compile
 			* 用来解析模板页面的对象的构造函数(一个实例)
 			* 利用compile对象解析模板页面
 			* 每解析一个表达式(非事件指令)都会创建一个对应的watcher对象, 并建立watcher与dep的关系
