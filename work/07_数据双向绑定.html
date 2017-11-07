@@ -5,5 +5,23 @@
   <title>07_数据双向绑定</title>
 </head>
 <body>
+<div id="app">
+  <input type="text" v-model="msg">
+  <p>{{msg}}</p>
+</div>
+
+<script src="js/mvvm/compile.js"></script>
+<script src="js/mvvm/observer.js"></script>
+<script src="js/mvvm/watcher.js"></script>
+<script src="js/mvvm/mvvm.js"></script>
+<script>
+  new MVVM({
+    el: '#app',
+    data: {
+      msg: 'atguigu',
+    },
+  })
+
+</script>
 </body>
 </html>

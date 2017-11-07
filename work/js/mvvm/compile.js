@@ -10,6 +10,7 @@ function Compile(el, vm) {
         // 2. 编译el中所有层次的子节点
         this.init();
         // 3. 将编译后的fragment添加到el中
+        this.$el.innerHTML = ''
         this.$el.appendChild(this.$fragment);
     }
 }
@@ -19,10 +20,18 @@ Compile.prototype = {
         var fragment = document.createDocumentFragment(),
             child;
 
+
+
+        var childrenHTML = el.innerHTML
+        // el.innerHTML = ''
+        var div = document.createElement('div')
+        div.innerHTML = childrenHTML
+
         // 将原生节点拷贝到fragment
-        while (child = el.firstChild) {
+        while (child = div.firstChild) {
             fragment.appendChild(child);
         }
+
 
         return fragment;
     },
@@ -125,17 +134,22 @@ var compileUtil = {
     },
     // 对v-model
     model: function(node, vm, exp) {
+        // 解析指令, 初始初始化显示
         this.bind(node, vm, exp, 'model');
-
+        // 保存compile对象
         var me = this,
+          // 得到表达式所对应的值
             val = this._getVMVal(vm, exp);
+        // 给节点绑定input监听(当输入时触发)
         node.addEventListener('input', function(e) {
+            // 得到最新的值
             var newValue = e.target.value;
             if (val === newValue) {
                 return;
             }
-
+            // 将最新的值赋值给data中对应的属性-->触发数据绑定的流程
             me._setVMVal(vm, exp, newValue);
+            // 保存最新的值
             val = newValue;
         });
     },
